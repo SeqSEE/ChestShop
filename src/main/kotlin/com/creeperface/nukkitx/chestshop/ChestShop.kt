@@ -117,14 +117,9 @@ class ChestShop : PluginBase(), Listener {
                 return false
             }
 
-            try {
-                price = priceString
-            } catch (ex: NumberFormatException) {
-                p.sendTranslated("err_price")
-                return false
-            }
+            price = priceString
 
-            if (BigDecimal(price).setScale(8, BigDecimal.ROUND_HALF_DOWN).compareTo(BigDecimal(0).setScale(8, RoundingMode.HALF_DOWN)) >= 0) {
+            if (BigDecimal(price).setScale(8, BigDecimal.ROUND_HALF_DOWN).compareTo(BigDecimal(0).setScale(8, RoundingMode.HALF_DOWN)) <= 0) {
                 p.sendTranslated("negative_price")
                 return false
             }
