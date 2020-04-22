@@ -12,12 +12,12 @@ import com.creeperface.nukkitx.chestshop.util.toSimpleNBT
 /**
  * @author CreeperFace
  */
-data class ShopData(var item: Item, var price: Int, var owner: String, val containers: MutableList<BlockVector3>) {
+data class ShopData(var item: Item, var price: String, var owner: String, val containers: MutableList<BlockVector3>) {
 
     fun serialize(): CompoundTag {
         return CompoundTag(ChestShop.SHOP_TAG)
                 .putCompound("item", item.toSimpleNBT())
-                .putInt("price", price)
+                .putString("price", price)
                 .putString("owner", owner.toLowerCase())
                 .putList(containers.toNBT("containers") {
                     val data = CompoundTag()
@@ -34,7 +34,7 @@ data class ShopData(var item: Item, var price: Int, var owner: String, val conta
 
         fun deserialize(nbt: CompoundTag) = ShopData(
                 nbt.getCompound("item").toSimpleItem(),
-                nbt.getInt("price"),
+                nbt.getString("price"),
                 nbt.getString("owner"),
                 nbt.getList("containers").toList { _, tag ->
                     tag as CompoundTag

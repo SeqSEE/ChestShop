@@ -7,26 +7,26 @@ import cn.nukkit.Player
  */
 interface EconomyInterface {
 
-    fun hasMoney(p: Player, amount: Int) = hasMoney(p.name, amount)
+    fun hasMoney(p: Player, amount: String) = hasMoney(p.name, amount)
 
     /**
      * isn't called directly but can be used for name based economy systems
      */
-    fun hasMoney(p: String, amount: Int): Boolean
+    fun hasMoney(p: String, amount: String): Boolean
 
-    fun subtractMoney(p: Player, amount: Int) = subtractMoney(p.name, amount)
+    fun subtractMoney(p: Player, amount: String) = subtractMoney(p.name, amount)
 
     /**
      * isn't called directly but can be used for name based economy systems
      */
-    fun subtractMoney(p: String, amount: Int)
+    fun subtractMoney(p: String, amount: String)
 
-    fun addMoney(p: Player, amount: Int) = addMoney(p.name, amount)
+    fun addMoney(p: Player, amount: String) = addMoney(p.name, amount)
 
-    fun addMoney(p: String, amount: Int)
+    fun addMoney(p: String, amount: String)
 
     //    @JvmDefault
-    fun take(p: Player, amount: Int): Boolean {
+    fun take(p: Player, amount: String): Boolean {
         if (!hasMoney(p, amount)) {
             return false
         }
@@ -36,7 +36,7 @@ interface EconomyInterface {
     }
 
     //    @JvmDefault
-    fun transfer(from: String, to: String, amount: Int) {
+    fun transfer(from: String, to: String, amount: String) {
         subtractMoney(from, amount)
         addMoney(to, amount)
     }

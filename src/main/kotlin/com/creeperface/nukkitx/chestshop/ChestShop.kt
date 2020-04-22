@@ -38,6 +38,8 @@ import com.creeperface.nukkitx.chestshop.economy.EconomyAPIInterface
 import com.creeperface.nukkitx.chestshop.economy.EconomyInterface
 import com.creeperface.nukkitx.chestshop.util.*
 import java.io.File
+import java.math.BigDecimal
+import java.math.RoundingMode
 import java.util.*
 
 /**
@@ -101,7 +103,7 @@ class ChestShop : PluginBase(), Listener {
             val itemString = lines[3].toLowerCase().trim()
 
             val count: Int
-            val price: Int
+            val price: String
 
             try {
                 count = countString.toInt()
@@ -116,13 +118,13 @@ class ChestShop : PluginBase(), Listener {
             }
 
             try {
-                price = priceString.toInt()
+                price = priceString
             } catch (ex: NumberFormatException) {
                 p.sendTranslated("err_price")
                 return false
             }
 
-            if (price < 0) {
+            if (BigDecimal(price).setScale(8, BigDecimal.ROUND_HALF_DOWN).compareTo(BigDecimal(0).setScale(8, RoundingMode.HALF_DOWN)) >= 0) {
                 p.sendTranslated("negative_price")
                 return false
             }
